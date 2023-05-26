@@ -1,0 +1,73 @@
+div.div1 {
+        
+        display: inline-block;
+        font-size: 3vw;
+        text-align: center;
+        min-width:40vw;
+        border-color: black;
+        border-style: solid;
+        border-width:  3px;
+        margin: 100 60;
+    }
+
+    table.div2 {
+       
+        display: inline-block;
+        margin-right: 0vw;
+        font-size: 3vw;
+        text-align: center;
+        min-width:40vw;
+        float:right;
+        margin: 100 60;
+        border-color: black;
+        border-style: solid;
+        border-width:  3px;
+
+        
+    }
+
+
+   thead{
+
+background-color:rgb(16,204,203);
+
+    }
+
+    h1{
+    	width: 50%;
+    	height: 5%;
+    	text-transform: uppercase;
+    	text-align: center;
+    	font-family: Montserrat;
+    	margin: 50 auto;
+    	border-color: rgb(16,204,203);
+    	border-style: solid;
+    	border-radius: 10px
+
+    }
+
+    div.bot{
+
+margin-right: 300px;
+    float: right;
+
+
+
+    }
+th{
+	font-family: Nunito;
+
+}
+td{
+	font-family: Nunito;
+}
+div.data{
+     background-color: rgb(11,196,204);
+     border-style: solid;
+     border-color: black;
+     margin: 0 1750 30 100;
+}
+h2{
+	margin-left: 50px;
+	font-family: Montserrat;
+}

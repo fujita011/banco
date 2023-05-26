@@ -1,0 +1,94 @@
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>SimpleCred | Credor</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Nunito"
+	rel="stylesheet">
+<link rel="stylesheet" href="aquivo.css" />
+
+</head>
+<body>
+	<div>
+		<img
+			src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/77/1784149077_1a4bbcc3-8be5-4e79-ba06-d9a086e7ca75.png?cb=1552488512"
+			style="width: 100; height: 85px; float: right; margin-right: 40; margin-top: 10; filter: brightness(0, 4); filter: contrast(1200%);" />
+		<h1>Credor</h1>
+	</div>
+	<div>
+		<div id="form">
+
+			<div class="input">
+
+				<form action="/inicial" th:object="${credores}" method="post">
+					<fieldset>
+						<br>
+						<table cellspacing="10">
+
+							<tr>
+								<td>
+									<h2>Dados Cliente | Credor</h2> <br />
+									<div class="label">
+										<label for="nome">Nome: </label>
+									</div>
+								</td>
+								<td align="left"><input type="text" name="nome"
+									th:field="*{nome}" disabled/></td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="label">
+										<label>CPF:</label>
+									</div>
+								</td>
+								<td align="left"><input type="text" name="cpf2" size="13"
+									maxlength="11" th:field="*{cpf}" disabled/>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="label">
+										<label for="valor">Valor a Disponibilizar: </label>
+									</div>
+								</td>
+							</tr>
+
+						</table>
+					</fieldset>
+				</form>
+				<br>
+
+				<div align="center">
+
+				<form th:action="@{/salvar-depositado}" th:object="${credores}"
+					method="post">
+						<input type="number" name="disponivel" size="13" maxlength="13"  th:field="*{disponivel}">
+					<input type="hidden" th:field="*{id}" />
+					<button class="btn btn-default">Enviar</button>
+					</form>
+				</div>
+
+				<br>
+
+			</div>
+		</div>
+		<br>
+		<div id="divmsg">
+			<h2 align="center">Mensagem da transação</h2>
+		</div>
+	</div>
+	<footer>
+		<p>
+			<font color="white" size="4"> 2019 © Simple Cred </font>
+		</p>
+	</footer>
+
+</body>
+</html>

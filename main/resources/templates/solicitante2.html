@@ -1,0 +1,232 @@
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>SimpleCred | Solicitante</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Nunito"
+	rel="stylesheet">
+<link rel="stylesheet" href="aquivo.css" />
+
+</head>
+<body>
+
+	<div>
+		<img
+			src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/77/1784149077_1a4bbcc3-8be5-4e79-ba06-d9a086e7ca75.png?cb=1552488512"
+			style="width: 100; height: 85px; float: right; margin-right: 40; margin-top: 10; filter: brightness(0, 4); filter: contrast(1200%);" />
+		<h1>Solicitante</h1>
+	</div>
+
+	<div id="form">
+		<div class="input">
+
+			<form action="/inicial" th:object="${solicitante}" method="post">
+
+
+				<fieldset>
+					<br>
+					<h2>Dados Cliente | Solicitante</h2>
+					<table cellspacing="10"
+						style="margin-left: 80; margin-right: auto;">
+
+						<tr>
+
+							<td>
+								<div class="form">
+									<div class="label">
+										<label for="nome">Nome: </label>
+									</div>
+								</div>
+							</td>
+							<td align="left"><input type="text" name="nome"
+								th:field="*{nome}" disabled></td>
+						</tr>
+
+						<tr>
+							<td>
+								<div class="label">
+									<label>CPF:</label>
+								</div>
+							</td>
+							<td align="left"><input type="text" name="cpf2" size="13"
+								maxlength="11" th:field="*{cpf}" disabled>
+						</tr>
+
+						<tr>
+							<td>
+								<div class="label">
+									<label for="renda">Renda: </label>
+								</div>
+							</td>
+							<td align="left"><input type="number" name="renda" size="13"
+								maxlength="13" th:field="*{renda}" disabled></td>
+						</tr>
+
+						<tr>
+							<td>
+								<div class="label">
+									<label for="rating">Rating: </label>
+								</div>
+							</td>
+							<td align="left"><input type="number" name="rating"
+								size="13" maxlength="13" th:field="*{rating}" disabled></td>
+						</tr>
+
+						<tr>
+							<td>
+								<div class="label">
+									<label for="valorMinimo">Valor Minimo: </label>
+								</div>
+							</td>
+							<td align="left"><input type="number" name="valorMinimo"
+								size="13" maxlength="13"
+								th:field="${solicitante.calculos.valorMinimo}" disabled>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<div class="label">
+									<label for="valorMaximo">Valor máximo: </label>
+								</div>
+							</td>
+							<td align="left"><input type="number" name="valorMaximo"
+								size="13" maxlength="13"
+								th:field="${solicitante.calculos.valorMaximo}" disabled>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</form>
+
+
+
+
+			<fieldset>
+				<table cellspacing="10"
+						style="margin-left: 40; margin-right: auto;">
+
+
+					<tr>
+						<td>
+						<div class="form">
+							<div class="label">
+								<label for="valor">Valor solicitado: </label>
+							</div>
+							</div>
+						</td>
+						<td align="left">
+
+							<form th:action="@{/calcular-regra}" th:object="${solicitante}"
+								method="post">
+								<input type="number" name="valor" size="13" maxlength="13"
+									th:field="*{valorDevedor}"> <input type="hidden"
+									th:field="*{id}" />
+								<button class="btn btn-outline-info">Consultar</button>
+							</form>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<div class="label">
+								<label for="numeroMinimo">Min de parcelas: </label>
+							</div>
+						</td>
+						<td align="left"><input type="number" name="numeroMinimo"
+							size="13" maxlength="13"
+							th:field="${solicitante.calculos.parcelaMinima}"
+							th:if="${solicitante.calculos.parcelaMinima} != null" disabled></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="label">
+								<label for="numeroMaximo">Max de parcelas: </label>
+							</div>
+						</td>
+						<td align="left"><input type="number" name="numeroMaximo"
+							size="13" maxlength="13"
+							th:field="${solicitante.calculos.parcelaMaxima}"
+							th:if="${solicitante.calculos.parcelaMaxima} != null" disabled></td>
+						</tr>
+						<tr>
+						<td>
+						<div class="label">
+										<label>Valor por parcelas: </label>
+										</div>
+										</td>
+										<td align=left>
+								<input type="number" name="valor" size="13" maxlength="13"
+									th:field="${solicitante.calculos.valorPorParcela}" disabled>
+									
+									</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="label">
+								<label>Parcelas: </label>
+							</div>
+						</td>
+						<td>
+
+							<form th:action="@{/calcular-regra}" th:object="${solicitante}"
+								method="post">
+
+								<br>
+								<input type="number" name="valor" size="13" maxlength="13"
+									th:field="${solicitante.calculos.parcelas}"> <input
+									type="hidden" th:field="*{id}" /> <input type="hidden"
+									th:field="*{valorDevedor}" />
+								<button class="btn btn-default"
+									th:if="${solicitante.calculos.parcelas > solicitante.calculos.parcelaMaxima  OR solicitante.calculos.parcelas < solicitante.calculos.parcelaMinima}">Validar</button>
+
+							</form>
+							<br>
+							
+							
+							
+						</td>
+						
+					</tr>
+					
+				</table>
+
+<div class="label">
+						<span th:if="${solicitante.calculos.parcelas > solicitante.calculos.parcelaMaxima  OR solicitante.calculos.parcelas < solicitante.calculos.parcelaMinima}">A
+								parcela deve ser entre a Maxima e a Minima </span>
+								</div>
+			</fieldset>
+		
+			<div align="center">
+				<form th:action="@{/salvar-solicitado}" th:object="${solicitante}"
+					method="post">
+					<input type="hidden" th:field="*{id}" /> <br />
+					<button class="btn btn-default"
+						th:if="${solicitante.calculos.parcelaMinima} == null AND ${solicitante.calculos.parcelas > solicitante.calculos.parcelaMaxima  OR solicitante.calculos.parcelas < solicitante.calculos.parcelaMinima}" disabled>Contratar</button>
+					<button class="btn btn-default"
+						th:if="${solicitante.calculos.parcelaMinima} != null">Contratar</button>
+				</form>
+			</div>
+			<br>
+		</div>
+
+		<br>
+	</div>
+
+
+
+
+	<footer>
+		<p>
+			<font color="white" size="4"> 2019 © Simple Cred </font>
+		</p>
+	</footer>
+</body>
+
+</html>

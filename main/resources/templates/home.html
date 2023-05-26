@@ -1,0 +1,140 @@
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>SimpleCred | Home</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Nunito"
+	rel="stylesheet">
+<link rel="stylesheet" href="aquivo.css" />
+</head>
+
+<body>
+
+
+
+
+	<form th:action="@{/realizar-acao}" th:object="${emprestimo}"
+		method="post">
+		<div class="bot">
+			<button class="btn btn-lg btn-primary">Ação</button>
+		</div>
+	</form>
+	<div>
+		<h1>Bem-vindo ao SimpleCred</h1>
+	</div>
+
+	<div class="logo">
+		<img
+			src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/77/1784149077_1a4bbcc3-8be5-4e79-ba06-d9a086e7ca75.png?cb=1552488512">
+	</div>
+
+	<div class="div3" th:each="banco : ${banco}">
+		<div class="data">
+			<h4>
+				<span th:text="${banco.diaAtual}"></span>
+			</h4>
+		</div>
+		<div class="fundo">
+		 Fundo do Banco: <h4 th:text="${banco.saldo}"></h4>
+		</div>
+	</div>
+
+	<div class="filter">
+		<form action="/">
+					<input type="hidden" value="credor" th:field="*{type}">
+			<button class="btn btn-outline-info">Credor</button>
+		</form>
+		<form action="/"> 
+			<input type="hidden" value="solicitante" th:field="*{type}">
+			
+    <button class="btn btn-outline-info">Solicitante</button>
+		</form><br>
+	
+	
+		<!-- <input TYPE="RADIO" NAME="OPCAO" VALUE="op1" th:checked> Credor <input
+			 TYPE="RADIO" NAME="OPCAO" VALUE="op2"> Solicitante<br> <br> -->
+
+		<input type="checkbox"  th:checked="${filtroSolicitantes}">
+		Solicitado 
+		<input type="checkbox"  th:checked="${filtroAnalise}">
+		Em análise 
+		<input type="checkbox"  th:checked="${filtroSaldo}">
+		Com saldo 
+		<button type="button" class="btn btn-default">Filtrar</button>
+	</div>
+
+<br />
+<br />
+	<div class="table-responsive">
+		<div class="div1">
+
+			<table class="table">
+				<thead>
+					<tr>
+
+						<th scope="col"></th>
+						<th scope="col">Solicitantes</th>
+						<th scope="col">Valor</th>
+						<th scope="col">Status</th>
+						<th scope="col">Operação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="devedores : ${listaDevedores}">
+						<td> </td>
+						<td th:text="${devedores.nome}"></td>
+						<td th:text="${devedores.valorDevedor}"></td>
+						<td th:text="${devedores.situacao}"></td>
+						<td><a class="btn btn-primary" 
+							th:href="@{/solicitando/{id}(id=${devedores.id})}"
+							th:if="${devedores.situacao} == Solicitar" disabled>Solicitar</a></td>
+							</tr>
+				</tbody>
+			</table>
+</div>
+
+		<div class="div2">
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Credores</th>
+						<th scope="col">Valor Dísponivel</th>
+						<th scope="col">Status</th>
+						<th scope="col">Operação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="credores : ${listaCredores}">
+						<td> </td>
+						<td th:text=" ${credores.nome}"></td>
+						<td th:text=" ${credores.disponivel}"></td>
+						<td th:text="${credores.situacao}"></td>
+						<td><a class="btn btn-primary"
+							th:href="@{/creditando/{id} (id=${credores.id})}"
+							th:if="${credores.situacao} == Zerado" disabled>Disponibilizar</a></td>
+					</tr>
+				</tbody>
+
+			</table>
+</div>
+		</div>
+
+	<footer>
+		<p>
+			<font color="white" size="4"> 2019 © Simple Cred</font>
+		</p>
+	</footer>
+
+
+
+</body>
+
+</html>
